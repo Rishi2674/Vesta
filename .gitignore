@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+.env/
+
+# VSCode
+.vscode/
+
+# Pytest
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# dotenv (optional, in case you use it later for secrets)
+.env.*
+
+# FastAPI generated static files (if any in the future)
+static/
+
+# Pyright / mypy / type-checking
+.mypy_cache/
+.pyright/
