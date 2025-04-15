@@ -1,14 +1,16 @@
-# app/routers/chat.py
-from fastapi import APIRouter, UploadFile, File, Form
-from typing import Optional
-from app.agents.agent_router import route_message
+# app/routes/chat.py
+
+from fastapi import APIRouter
+from pydantic import BaseModel
+from app.agents.agent2 import agent2_response
 
 router = APIRouter()
 
+class ChatRequest(BaseModel):
+    message: str
+
 @router.post("/chat")
-async def chat_endpoint(
-    message: Optional[str] = Form(None),
-    image: Optional[UploadFile] = File(None)
-):
-    response = await route_message(message=message, image=image)
+async def chat_endpoint(payload: ChatRequest):
+    message = payload.message
+    response = await agent2_response(message)
     return {"response": response}
