@@ -7,7 +7,7 @@ async def route_message(message: str = None, image: str = None):
     if image:
         return agent1_response(message, image)
     
-    if message and is_tenancy_question(message):
+    if message:
         return  await agent2_response(message)
     
     return "Can you please clarify if you're asking about a rental issue or showing a property problem?"
