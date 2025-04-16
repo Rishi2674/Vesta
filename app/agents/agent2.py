@@ -1,5 +1,5 @@
 # app/agents/agent2.py
-from app.utils.groq_client import call_groq
+from app.utils.groq_client_2 import call_groq
 
 async def agent2_response(message : str):
     # Placeholder response
