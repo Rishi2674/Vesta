@@ -1,6 +1,6 @@
 from app.utils.groq_client_1 import call_groq_vision_model
 
-def agent1_response(base64_image: str, user_text: str = "") -> str:
+def agent1_response(user_text: str = "", base64_image: str = None) -> str:
     # Check if the base64 image is valid
     if not base64_image:
         return "Failed to receive valid image data."

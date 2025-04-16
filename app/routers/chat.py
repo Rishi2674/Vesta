@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File, Form
 from typing import Optional
-from app.agents.agent1 import agent1_response
-from app.agents.agent2 import agent2_response  # hypothetical
+from app.agents.agent_router import route_message
+# hypothetical
 import base64
 
 router = APIRouter()
@@ -12,20 +12,17 @@ async def chat_endpoint(
     image: Optional[UploadFile] = File(None)
 ):
     # If image is uploaded, use Agent 1
+    base64_image = None
+    
     if image is not None:
         image_bytes = await image.read()
         base64_image = base64.b64encode(image_bytes).decode('utf-8')
-        return {
-            "agent": "Agent 1 - Property Inspector",
-            "response": agent1_response(base64_image, user_text=message or "")
-        }
 
-    # Fallback to Agent 2
-    if message:
-        response = await agent2_response(message)
-        return {
-            "agent": "Agent 2 - Tenancy FAQ Bot",
-            "response": response
-        }
+    print(f"Received message: {message}")
+    print(f"Received image: {base64_image is not None}")
+    print(f"Image size: {len(base64_image) if base64_image else 'No image'} bytes")
+    route_message_response = route_message(message, base64_image)
+    if route_message_response:
+        return {"response": route_message_response}
 
     return {"error": "No input provided"}
