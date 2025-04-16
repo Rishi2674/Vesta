@@ -1,19 +1,26 @@
-from app.utils.groq_client_1 import call_groq_vision_model
+# app/agents/agent1.py
 
-def agent1_response(user_text: str = "", base64_image: str = None) -> str:
-    # Check if the base64 image is valid
+from app.utils.groq_client_1 import call_groq_vision_model
+from app.utils.shared_memory import add_message, get_history
+
+def agent1_response(user_text: str = "", base64_image: str = None):
     if not base64_image:
-        return "Failed to receive valid image data."
-    
-    # If no user text is provided, set a default prompt
+        return {"agent": "Agent 1", "response": "Failed to receive valid image data."}
+
     if not user_text:
         user_text = "Please analyze the image for any visible issues."
-    
-    # Call the Groq Vision model with the base64 image and user text
-    agent_response =  call_groq_vision_model(base64_image, user_text)
-    
-    # Check if the response was successful
+
+    # Log user input to shared memory
+    add_message("user", user_text)
+
+    # Call Groq Vision model
+    agent_response = call_groq_vision_model(base64_image, user_text)
+
     if not agent_response:
-        return "Failed to get response from Groq model."
-    
+        return {"agent": "Agent 1", "response": "Failed to get response from Groq model."}
+
+    # Log assistant response
+    add_message("assistant", f"Image analysis result: {agent_response}")
+
+
     return agent_response

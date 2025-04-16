@@ -26,7 +26,7 @@ const MessageList = ({ messages }) => {
             
             <div className="message-text">
             <ReactMarkdown>
-              {message.text}
+            {typeof message.text === "string" ? message.text : JSON.stringify(message.text)}
               </ReactMarkdown>
               </div>   
             {message.image && (
