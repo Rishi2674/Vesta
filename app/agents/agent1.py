@@ -10,7 +10,7 @@ def agent1_response(user_text: str = "", base64_image: str = None) -> str:
         user_text = "Please analyze the image for any visible issues."
     
     # Call the Groq Vision model with the base64 image and user text
-    agent_response = call_groq_vision_model(base64_image, user_text)
+    agent_response =  call_groq_vision_model(base64_image, user_text)
     
     # Check if the response was successful
     if not agent_response:

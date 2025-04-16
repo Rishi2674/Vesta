@@ -21,7 +21,7 @@ async def chat_endpoint(
     print(f"Received message: {message}")
     print(f"Received image: {base64_image is not None}")
     print(f"Image size: {len(base64_image) if base64_image else 'No image'} bytes")
-    route_message_response = route_message(message, base64_image)
+    route_message_response = await route_message(message, base64_image)
     if route_message_response:
         return {"response": route_message_response}
 

@@ -9,5 +9,5 @@ async def agent2_response(message : str):
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": message}
     ]
-    agent_response = call_groq(messages)
-    return await agent_response
+    agent_response = await call_groq(messages)
+    return agent_response

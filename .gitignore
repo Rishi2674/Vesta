@@ -25,7 +25,7 @@ Thumbs.db
 
 # dotenv (optional, in case you use it later for secrets)
 
-
+frontend/node_modules/
 # FastAPI generated static files (if any in the future)
 static/
 
