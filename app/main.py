@@ -1,7 +1,7 @@
 #app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import chat
+from app.routers import graph_chat,chat
 
 app = FastAPI(title="Vesta: Multi-Agent Real Estate Assistant")
 

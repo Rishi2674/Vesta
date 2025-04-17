@@ -21,7 +21,7 @@ async def agent2_response(message: str):
 
     # Prepare message list with history
     messages = [system_prompt] + get_history()
-    print("Messages:", messages)
+    # print("Messages:", messages)
 
     # Get response from Groq
     response = await call_groq(messages)
