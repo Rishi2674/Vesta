@@ -7,3 +7,4 @@ class GraphState(BaseModel):
     messages: List[Dict[str, str]]
     current_agent: str
     fallback: Optional[bool] = False
+    search_required: Optional[bool] = False  # 👈 NEW
