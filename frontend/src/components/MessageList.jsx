@@ -1,8 +1,9 @@
 // src/components/MessageList.jsx
 import React from 'react';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
+import LoadingIndicator from './LoadingIndicator';
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, isLoading, isSearching }) => {
   // Add a safeguard to prevent mapping undefined
   if (!messages || !Array.isArray(messages)) {
     return <div className="message-list">No messages to display</div>;
@@ -23,12 +24,11 @@ const MessageList = ({ messages }) => {
           className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'} ${message.isError ? 'error-message' : ''}`}
         >
           <div className="message-content">
-            
             <div className="message-text">
-            <ReactMarkdown>
-            {typeof message.text === "string" ? message.text : JSON.stringify(message.text)}
+              <ReactMarkdown>
+                {typeof message.text === "string" ? message.text : JSON.stringify(message.text)}
               </ReactMarkdown>
-              </div>   
+            </div>   
             {message.image && (
               <div className="message-image-container">
                 <img 
@@ -42,6 +42,22 @@ const MessageList = ({ messages }) => {
           </div>
         </div>
       ))}
+      
+      {isLoading && (
+        <div className={`message bot-message loading-message`}>
+          <div className="message-content">
+            {isSearching ? (
+              <LoadingIndicator />
+            ) : (
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

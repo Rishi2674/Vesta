@@ -14,23 +14,24 @@ const ChatInterface = () => {
     },
   ]);
   const [loading, setLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, loading]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSendMessage = async (text, image = null) => {
+  const handleSendMessage = async (text, image = null, searchMode = false) => {
     if (!text && !image) return;
 
     // Add user message to chat
     const userMessage = {
       id: messages.length + 1,
-      text: text || "",
+      text: searchMode ? `🔍 Web search: ${text}` : text || "",
       sender: 'user',
       timestamp: new Date(),
       image: image ? URL.createObjectURL(image) : null,
@@ -38,10 +39,11 @@ const ChatInterface = () => {
     
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setLoading(true);
+    setIsSearching(searchMode);
 
     try {
-      // Send message to API with both text and image if available
-      const response = await sendMessage(text, image);
+      // Send message to API with text, image, and search mode
+      const response = await sendMessage(text, image, searchMode);
 
       // Add bot response to chat
       const botMessage = {
@@ -66,13 +68,18 @@ const ChatInterface = () => {
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {
       setLoading(false);
+      setIsSearching(false);
     }
   };
 
   return (
     <div className="chat-interface">
       <div className="messages-container">
-        <MessageList messages={messages} />
+        <MessageList 
+          messages={messages} 
+          isLoading={loading}
+          isSearching={isSearching}
+        />
         <div ref={messagesEndRef} />
       </div>
       <MessageInput onSendMessage={handleSendMessage} isLoading={loading} />

@@ -1,21 +1,24 @@
 // src/components/MessageInput.jsx
 import React, { useState, useRef } from 'react';
 import { FaPaperPlane, FaImage, FaTimes } from 'react-icons/fa';
+import { TbWorldSearch } from "react-icons/tb";
 import ImageUpload from './ImageUpload';
 
 const MessageInput = ({ onSendMessage, isLoading }) => {
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
   const [showImageUpload, setShowImageUpload] = useState(false);
+  const [searchMode, setSearchMode] = useState(false);
   const textareaRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim() || image) {
-      onSendMessage(message.trim(), image);
+      onSendMessage(message.trim(), image, searchMode);
       setMessage('');
       setImage(null);
       setShowImageUpload(false);
+      setSearchMode(false); // Reset search mode after sending
     }
   };
 
@@ -33,6 +36,10 @@ const MessageInput = ({ onSendMessage, isLoading }) => {
 
   const removeImage = () => {
     setImage(null);
+  };
+
+  const toggleSearchMode = () => {
+    setSearchMode(!searchMode);
   };
 
   const adjustTextareaHeight = () => {
@@ -79,10 +86,21 @@ const MessageInput = ({ onSendMessage, isLoading }) => {
             adjustTextareaHeight();
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
+          placeholder={searchMode ? "Search the web..." : "Type your message..."}
           rows={1}
           disabled={isLoading}
         />
+        
+        <button
+          type="button"
+          className={`search-button ${searchMode ? 'active' : ''}`}
+          onClick={toggleSearchMode}
+          disabled={isLoading}
+          aria-label="Search the web"
+          title="Search the web for information"
+        >
+          <TbWorldSearch/>
+        </button>
         
         <button
           type="button"

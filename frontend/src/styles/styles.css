@@ -370,3 +370,130 @@ body {
     height: 40px;
   }
 }
+
+/* Search Button Styles */
+.search-button {
+  background-color: var(--gray-300);
+  color: var(--text-color);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 1.6rem; /* or use 1.5rem for even bigger icon */
+}
+
+.search-button:hover {
+  background-color: var(--gray-400);
+}
+
+.search-button.active {
+  background-color: var(--success-color);
+  color: white;
+  /* size: 0.25rem; */
+}
+
+.search-button:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Loading and Typing Indicators */
+.loading-message {
+  opacity: 0.8;
+}
+
+/* Dots typing animation */
+.typing-indicator {
+  display: flex;
+  padding: 0.5rem 0;
+}
+
+.typing-indicator span {
+  height: 10px;
+  width: 10px;
+  margin: 0 2px;
+  background-color: var(--gray-500);
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0% {
+    transform: translateY(0px);
+    background-color: var(--gray-500);
+  }
+  28% {
+    transform: translateY(-7px);
+    background-color: var(--primary-color);
+  }
+  44% {
+    transform: translateY(0px);
+    background-color: var(--gray-500);
+  }
+}
+
+/* Web search loading spinner */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.loading-spinner .dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: inline-block;
+  animation: search-loading 1.4s infinite ease-in-out both;
+}
+
+.loading-spinner .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-spinner .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes search-loading {
+  0%, 80%, 100% { 
+    transform: scale(0);
+  } 
+  40% { 
+    transform: scale(1.0);
+  }
+}
+
+.loading-text {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
