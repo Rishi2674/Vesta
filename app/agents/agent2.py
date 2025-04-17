@@ -3,7 +3,7 @@
 from app.utils.groq_client_2 import call_groq
 from app.utils.shared_memory import get_history, add_message
 
-async def agent2_response(message: str):
+async def agent2_response(message: list[dict]):
     system_prompt = {
         "role": "system",
         "content": (
@@ -16,17 +16,22 @@ async def agent2_response(message: str):
         )
     }
 
-    # Log user message
-    add_message("user", message)
+    cleaned_messages = []
+    # print("Calling agent 2")
+    # print(message)
+    for msg in message:
+        if "image" in msg:
+            msg = msg.copy()
+            msg.pop("image")  # remove invalid image field
 
-    # Prepare message list with history
-    messages = [system_prompt] + get_history()
-    # print("Messages:", messages)
+        if isinstance(msg.get("content"), str):
+            cleaned_messages.append(msg)
+        else:
+            # Skip or convert badly formed ones
+            continue
 
-    # Get response from Groq
-    response = await call_groq(messages)
+    full_messages = [system_prompt] + cleaned_messages
 
-    # Save assistant response
-    add_message("assistant", response)
-
+    response = await call_groq(full_messages)
     return response
+  
