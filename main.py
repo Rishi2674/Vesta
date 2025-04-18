@@ -3,19 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
-
-from app.routers import graph_chat, chat
+from app.routers import graph_chat
 
 app = FastAPI(title="Vesta: Multi-Agent Real Estate Assistant")
 
 # CORS: Include production domain if needed
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "http://127.0.0.1:3000"
-        # add "https://your-production-site.com" here when ready
-    ],
+    allow_origins=["*"],  # For production, specify your domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,4 +34,3 @@ def serve_react_app(full_path: str):
 
 # Include API routers
 app.include_router(graph_chat.router)
-app.include_router(chat.router)

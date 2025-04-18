@@ -4,7 +4,7 @@ __pycache__/
 *.egg
 *.egg-info/
 dist/
-build/
+
 
 # Virtual environment
 venv/
@@ -29,7 +29,7 @@ frontend/node_modules/
 # FastAPI generated static files (if any in the future)
 static/
 
-frontend/build/
+
 
 # Pyright / mypy / type-checking
 .mypy_cache/
