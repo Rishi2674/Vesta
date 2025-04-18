@@ -10,7 +10,7 @@ app = FastAPI(title="Vesta: Multi-Agent Real Estate Assistant")
 # CORS: Include production domain if needed
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For production, specify your domain
+    allow_origins=["https://vesta-x7zr.onrender.com","http://localhost:3000"],  # For production, specify your domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
