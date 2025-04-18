@@ -16,15 +16,24 @@ Vesta is an AI-powered chatbot designed for real estate platforms, capable of an
 ## ✨ Features
 1. **Multi-Agent System**:
    - 🖼️ **Visual Troubleshooter**: Analyzes property images + descriptions
+     - Takes the input from user
+     - Parses the input and image to the groq API, utilising  - meta-llama/llama-4-scout-17b-16e-instruct - model
+     - System decides an automatic role and a custom pre defined prompt to identify the issues in the image.
    - 📚 **Tenancy Expert**: Answers legal/FAQ questions using tools:
-     - Location normalizer
-     - Law database lookup
-     - Template generator
      - Web search summarizer
+        - generates a google search query from the given user text
+        - executes the search using SERPapi and returns the JSON of web searches scraped
+        - utilisies beautifulSoup to scrape the top links and extract the data
+        - summarises the data scraped from the top links and returns to the user along with the links used.
+     - Also answers based on past context and common knowledge.
+     - Utilises the llama3-70b-8192 model from groq.
 
 2. **Smart Routing**:
    - Automatically directs queries to the appropriate agent
    - Handles mixed image+text inputs
+   - Uses LangGraph to automatically handle fallbacks based on trigger or image detections.
+   - Sets the agent to "FAQ agent" initially but fallbacks on receiving certain triggers or detecting an image and calls "Image Agent".
+
 
 ## 🚀 Quick Start
 ```bash
