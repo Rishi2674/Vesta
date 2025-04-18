@@ -1,12 +1,12 @@
+# render.yaml
 services:
   - type: web
-    name: vesta-app
+    name: vesta
     env: python
-    buildCommand: ""
+    buildCommand: |
+      pip install -r requirements.txt
+      cd frontend && npm install && npm run build
     startCommand: uvicorn main:app --host 0.0.0.0 --port 8000
-    plan: free
     envVars:
       - key: PORT
         value: 8000
-      - key: PYTHON_VERSION
-        value: 3.10
